@@ -36,22 +36,14 @@ import pickle
 import logging
 from pathlib import Path
 from collections import defaultdict
+from dataclasses import dataclass
+import statistics
 
-import numpy as np
-
-try:
-    import torch
-except ImportError:
-    print("pip install torch")
-    sys.exit(1)
+torch = None
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-
-# ── Import model definition ────────────────────────────────────────────────
-sys.path.insert(0, str(Path(__file__).parent))
-from model import DomainPredictor  # noqa: E402
 
 # We also need encoding constants — redefine here for standalone use
 AMINO_ACIDS = "ACDEFGHIKLMNPQRSTVWY"
@@ -81,8 +73,31 @@ ANNOTATOR_TO_LABEL = {
 }
 
 
+@dataclass
+class EvaluationLabelConfig:
+    """Resolved label configuration used for evaluation."""
+    eval_labels: set
+    training_only: set
+    annotation_only: set
+    collapsed_map: dict
+
+
+DEFAULT_SHARED_LABEL_MAP = {
+    "RVT_1": "RT_core",
+    "RVT_thumb": "RT_accessory",
+    "RVT_connect": "RT_accessory",
+    "GIIM": "RT_accessory",
+    "RNase_H": "RNase_H",
+    "none": "none",
+}
+
+
 def load_model(checkpoint_path, device):
     """Load trained model from checkpoint."""
+    if torch is None:
+        raise RuntimeError("PyTorch is required to run evaluation. Install with: pip install torch")
+    sys.path.insert(0, str(Path(__file__).parent))
+    from model import DomainPredictor  # noqa: E402
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
     meta = checkpoint["meta"]
     model_args = checkpoint["args"]
@@ -203,8 +218,67 @@ def load_annotations(csv_path, col_id="structure_id", col_domain="domain",
     return annotations
 
 
+def load_label_map(label_map_path):
+    """Load a JSON label map; returns empty map if path is not provided."""
+    if not label_map_path:
+        return {}
+
+    with open(label_map_path) as f:
+        label_map = json.load(f)
+
+    if not isinstance(label_map, dict):
+        raise ValueError("--label_map_json must contain a JSON object")
+
+    return label_map
+
+
+def resolve_label_config(model_labels, annotation_labels, label_mode, label_map):
+    """
+    Build evaluation label config and perform consistency checks.
+
+    label_mode:
+      - strict: evaluate only in the model's native label space
+      - shared: collapse labels into a shared ontology with label_map/default mapping
+    """
+    if label_mode == "strict":
+        training_only = set(model_labels) - set(annotation_labels)
+        annotation_only = set(annotation_labels) - set(model_labels)
+        return EvaluationLabelConfig(
+            eval_labels=set(model_labels),
+            training_only=training_only,
+            annotation_only=annotation_only,
+            collapsed_map={},
+        )
+
+    # shared mode
+    collapsed_map = dict(DEFAULT_SHARED_LABEL_MAP)
+    collapsed_map.update(label_map)
+
+    collapsed_training = set(collapsed_map.get(x, x) for x in model_labels)
+    collapsed_annotations = set(collapsed_map.get(x, x) for x in annotation_labels)
+
+    training_only = collapsed_training - collapsed_annotations
+    annotation_only = collapsed_annotations - collapsed_training
+
+    return EvaluationLabelConfig(
+        eval_labels=collapsed_training | collapsed_annotations,
+        training_only=training_only,
+        annotation_only=annotation_only,
+        collapsed_map=collapsed_map,
+    )
+
+
+def apply_label_mode(labels, label_mode, collapsed_map):
+    """Apply label mode to a residue-label list."""
+    if label_mode == "strict":
+        return labels
+    return [collapsed_map.get(x, x) for x in labels]
+
+
 def predict_sequence(model, sequence, meta, device):
     """Run model prediction on a single sequence."""
+    if torch is None:
+        raise RuntimeError("PyTorch is required to run evaluation. Install with: pip install torch")
     # Encode
     seq_idx = [AA_TO_IDX.get(aa, UNK_IDX) for aa in sequence]
     seq_tensor = torch.tensor([seq_idx], dtype=torch.long).to(device)
@@ -307,7 +381,34 @@ def main():
     parser.add_argument("--col_domain", default="domain")
     parser.add_argument("--col_start", default="start")
     parser.add_argument("--col_end", default="end")
+    parser.add_argument(
+        "--label_mode",
+        choices=["strict", "shared"],
+        default="strict",
+        help=(
+            "strict: native model labels only; "
+            "shared: collapse labels into shared ontology to avoid train/eval label mismatch"
+        ),
+    )
+    parser.add_argument(
+        "--label_map_json",
+        default="",
+        help="Optional JSON map for shared label mode, e.g. {\"RVT_thumb\":\"RT_accessory\"}",
+    )
+    parser.add_argument(
+        "--fail_on_label_mismatch",
+        action="store_true",
+        help="Fail fast if annotation labels include classes that are not in model label space.",
+    )
     args = parser.parse_args()
+
+    global torch
+    if torch is None:
+        try:
+            import torch as _torch
+            torch = _torch
+        except ImportError:
+            parser.error("PyTorch is required for evaluation. Install with: pip install torch")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     output_dir = Path(args.output)
@@ -335,6 +436,44 @@ def main():
         col_id=args.col_id, col_domain=args.col_domain,
         col_start=args.col_start, col_end=args.col_end,
     )
+
+    annotation_labels = set()
+    for entries in annotations.values():
+        for domain, _start, _end in entries:
+            annotation_labels.add(domain)
+
+    label_map = load_label_map(args.label_map_json)
+    label_config = resolve_label_config(
+        model_labels=set(idx_to_label),
+        annotation_labels=annotation_labels | {"none"},
+        label_mode=args.label_mode,
+        label_map=label_map,
+    )
+
+    if args.label_mode == "strict" and label_config.annotation_only:
+        logger.warning(
+            "Label mismatch detected: annotation has labels unseen during training: %s",
+            sorted(label_config.annotation_only),
+        )
+        logger.warning(
+            "These labels will have near-zero recall by construction. "
+            "Use --label_mode shared or retrain with expanded labels."
+        )
+        if args.fail_on_label_mismatch:
+            logger.error("Exiting because --fail_on_label_mismatch was set.")
+            sys.exit(2)
+    elif args.label_mode == "shared":
+        logger.info("Shared-label evaluation enabled.")
+        if label_config.training_only:
+            logger.info(
+                "  Collapsed labels present only in training set: %s",
+                sorted(label_config.training_only),
+            )
+        if label_config.annotation_only:
+            logger.info(
+                "  Collapsed labels present only in annotation set: %s",
+                sorted(label_config.annotation_only),
+            )
 
     # Find proteins with both sequence and annotation
     common_ids = set()
@@ -376,6 +515,9 @@ def main():
         # True labels from structural annotation
         true_labels = annotations_to_residue_labels(annots, len(seq), label_to_idx)
 
+        pred_labels = apply_label_mode(pred_labels, args.label_mode, label_config.collapsed_map)
+        true_labels = apply_label_mode(true_labels, args.label_mode, label_config.collapsed_map)
+
         # Per-residue comparison
         for pred, true in zip(pred_labels, true_labels):
             if true != "none":
@@ -383,7 +525,8 @@ def main():
                     per_domain_tp[true] += 1
                 else:
                     per_domain_fn[true] += 1
-                    per_domain_fp[pred] += 1
+                    if pred != "none":
+                        per_domain_fp[pred] += 1
 
         # Boundary comparison
         boundary_result = compute_boundary_comparison(
@@ -422,7 +565,8 @@ def main():
     logger.info(f"  {'-'*60}")
 
     all_f1s = []
-    for domain in idx_to_label:
+    metric_domains = sorted(label_config.eval_labels)
+    for domain in metric_domains:
         if domain == "none":
             continue
         tp = per_domain_tp.get(domain, 0)
@@ -436,7 +580,7 @@ def main():
             all_f1s.append(f1)
         logger.info(f"  {domain:<20} {p:>10.3f} {r:>10.3f} {f1:>10.3f} {support:>10}")
 
-    macro_f1 = np.mean(all_f1s) if all_f1s else 0
+    macro_f1 = (sum(all_f1s) / len(all_f1s)) if all_f1s else 0
     logger.info(f"\n  Macro F1: {macro_f1:.4f}")
 
     # Boundary metrics
@@ -455,12 +599,15 @@ def main():
     logger.info(f"  F1:        {bnd_f1:.3f}")
 
     if all_boundary_offsets:
-        offsets = np.array(all_boundary_offsets)
         logger.info(f"\nBoundary offset statistics (predicted - true):")
-        logger.info(f"  Mean offset:   {offsets.mean():+.1f} residues")
-        logger.info(f"  Median offset: {np.median(offsets):+.1f} residues")
-        logger.info(f"  Std:           {offsets.std():.1f} residues")
-        logger.info(f"  MAE:           {np.abs(offsets).mean():.1f} residues")
+        mean_offset = statistics.fmean(all_boundary_offsets)
+        median_offset = statistics.median(all_boundary_offsets)
+        std_offset = statistics.pstdev(all_boundary_offsets) if len(all_boundary_offsets) > 1 else 0.0
+        mae_offset = statistics.fmean(abs(x) for x in all_boundary_offsets)
+        logger.info(f"  Mean offset:   {mean_offset:+.1f} residues")
+        logger.info(f"  Median offset: {median_offset:+.1f} residues")
+        logger.info(f"  Std:           {std_offset:.1f} residues")
+        logger.info(f"  MAE:           {mae_offset:.1f} residues")
 
     # Save results
     with open(output_dir / "evaluation_results.json", "w") as f:
@@ -484,7 +631,7 @@ def main():
         for r in all_results:
             recall = r["n_matched"] / r["n_true_boundaries"] if r["n_true_boundaries"] > 0 else 0
             offsets = [m["offset"] for m in r["boundary_matches"]]
-            mean_offset = np.mean(np.abs(offsets)) if offsets else float("nan")
+            mean_offset = (sum(abs(x) for x in offsets) / len(offsets)) if offsets else float("nan")
             writer.writerow([
                 r["protein_id"], r["seq_length"],
                 r["n_true_boundaries"], r["n_pred_boundaries"],
