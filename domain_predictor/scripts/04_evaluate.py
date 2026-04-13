@@ -37,22 +37,13 @@ import logging
 from pathlib import Path
 from collections import defaultdict
 from dataclasses import dataclass
+import statistics
 
-import numpy as np
-
-try:
-    import torch
-except ImportError:
-    print("pip install torch")
-    sys.exit(1)
+torch = None
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-
-# ── Import model definition ────────────────────────────────────────────────
-sys.path.insert(0, str(Path(__file__).parent))
-from model import DomainPredictor  # noqa: E402
 
 # We also need encoding constants — redefine here for standalone use
 AMINO_ACIDS = "ACDEFGHIKLMNPQRSTVWY"
@@ -103,6 +94,10 @@ DEFAULT_SHARED_LABEL_MAP = {
 
 def load_model(checkpoint_path, device):
     """Load trained model from checkpoint."""
+    if torch is None:
+        raise RuntimeError("PyTorch is required to run evaluation. Install with: pip install torch")
+    sys.path.insert(0, str(Path(__file__).parent))
+    from model import DomainPredictor  # noqa: E402
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
     meta = checkpoint["meta"]
     model_args = checkpoint["args"]
@@ -282,6 +277,8 @@ def apply_label_mode(labels, label_mode, collapsed_map):
 
 def predict_sequence(model, sequence, meta, device):
     """Run model prediction on a single sequence."""
+    if torch is None:
+        raise RuntimeError("PyTorch is required to run evaluation. Install with: pip install torch")
     # Encode
     seq_idx = [AA_TO_IDX.get(aa, UNK_IDX) for aa in sequence]
     seq_tensor = torch.tensor([seq_idx], dtype=torch.long).to(device)
@@ -404,6 +401,14 @@ def main():
         help="Fail fast if annotation labels include classes that are not in model label space.",
     )
     args = parser.parse_args()
+
+    global torch
+    if torch is None:
+        try:
+            import torch as _torch
+            torch = _torch
+        except ImportError:
+            parser.error("PyTorch is required for evaluation. Install with: pip install torch")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     output_dir = Path(args.output)
@@ -575,7 +580,7 @@ def main():
             all_f1s.append(f1)
         logger.info(f"  {domain:<20} {p:>10.3f} {r:>10.3f} {f1:>10.3f} {support:>10}")
 
-    macro_f1 = np.mean(all_f1s) if all_f1s else 0
+    macro_f1 = (sum(all_f1s) / len(all_f1s)) if all_f1s else 0
     logger.info(f"\n  Macro F1: {macro_f1:.4f}")
 
     # Boundary metrics
@@ -594,12 +599,15 @@ def main():
     logger.info(f"  F1:        {bnd_f1:.3f}")
 
     if all_boundary_offsets:
-        offsets = np.array(all_boundary_offsets)
         logger.info(f"\nBoundary offset statistics (predicted - true):")
-        logger.info(f"  Mean offset:   {offsets.mean():+.1f} residues")
-        logger.info(f"  Median offset: {np.median(offsets):+.1f} residues")
-        logger.info(f"  Std:           {offsets.std():.1f} residues")
-        logger.info(f"  MAE:           {np.abs(offsets).mean():.1f} residues")
+        mean_offset = statistics.fmean(all_boundary_offsets)
+        median_offset = statistics.median(all_boundary_offsets)
+        std_offset = statistics.pstdev(all_boundary_offsets) if len(all_boundary_offsets) > 1 else 0.0
+        mae_offset = statistics.fmean(abs(x) for x in all_boundary_offsets)
+        logger.info(f"  Mean offset:   {mean_offset:+.1f} residues")
+        logger.info(f"  Median offset: {median_offset:+.1f} residues")
+        logger.info(f"  Std:           {std_offset:.1f} residues")
+        logger.info(f"  MAE:           {mae_offset:.1f} residues")
 
     # Save results
     with open(output_dir / "evaluation_results.json", "w") as f:
@@ -623,7 +631,7 @@ def main():
         for r in all_results:
             recall = r["n_matched"] / r["n_true_boundaries"] if r["n_true_boundaries"] > 0 else 0
             offsets = [m["offset"] for m in r["boundary_matches"]]
-            mean_offset = np.mean(np.abs(offsets)) if offsets else float("nan")
+            mean_offset = (sum(abs(x) for x in offsets) / len(offsets)) if offsets else float("nan")
             writer.writerow([
                 r["protein_id"], r["seq_length"],
                 r["n_true_boundaries"], r["n_pred_boundaries"],
