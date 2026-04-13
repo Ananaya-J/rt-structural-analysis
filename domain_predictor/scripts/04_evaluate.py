@@ -36,6 +36,7 @@ import pickle
 import logging
 from pathlib import Path
 from collections import defaultdict
+from dataclasses import dataclass
 
 import numpy as np
 
@@ -78,6 +79,25 @@ ANNOTATOR_TO_LABEL = {
     "connection": "RVT_connect",
     "rnaseh": "RNase_H",
     "maturase": "GIIM",
+}
+
+
+@dataclass
+class EvaluationLabelConfig:
+    """Resolved label configuration used for evaluation."""
+    eval_labels: set
+    training_only: set
+    annotation_only: set
+    collapsed_map: dict
+
+
+DEFAULT_SHARED_LABEL_MAP = {
+    "RVT_1": "RT_core",
+    "RVT_thumb": "RT_accessory",
+    "RVT_connect": "RT_accessory",
+    "GIIM": "RT_accessory",
+    "RNase_H": "RNase_H",
+    "none": "none",
 }
 
 
@@ -203,6 +223,63 @@ def load_annotations(csv_path, col_id="structure_id", col_domain="domain",
     return annotations
 
 
+def load_label_map(label_map_path):
+    """Load a JSON label map; returns empty map if path is not provided."""
+    if not label_map_path:
+        return {}
+
+    with open(label_map_path) as f:
+        label_map = json.load(f)
+
+    if not isinstance(label_map, dict):
+        raise ValueError("--label_map_json must contain a JSON object")
+
+    return label_map
+
+
+def resolve_label_config(model_labels, annotation_labels, label_mode, label_map):
+    """
+    Build evaluation label config and perform consistency checks.
+
+    label_mode:
+      - strict: evaluate only in the model's native label space
+      - shared: collapse labels into a shared ontology with label_map/default mapping
+    """
+    if label_mode == "strict":
+        training_only = set(model_labels) - set(annotation_labels)
+        annotation_only = set(annotation_labels) - set(model_labels)
+        return EvaluationLabelConfig(
+            eval_labels=set(model_labels),
+            training_only=training_only,
+            annotation_only=annotation_only,
+            collapsed_map={},
+        )
+
+    # shared mode
+    collapsed_map = dict(DEFAULT_SHARED_LABEL_MAP)
+    collapsed_map.update(label_map)
+
+    collapsed_training = set(collapsed_map.get(x, x) for x in model_labels)
+    collapsed_annotations = set(collapsed_map.get(x, x) for x in annotation_labels)
+
+    training_only = collapsed_training - collapsed_annotations
+    annotation_only = collapsed_annotations - collapsed_training
+
+    return EvaluationLabelConfig(
+        eval_labels=collapsed_training | collapsed_annotations,
+        training_only=training_only,
+        annotation_only=annotation_only,
+        collapsed_map=collapsed_map,
+    )
+
+
+def apply_label_mode(labels, label_mode, collapsed_map):
+    """Apply label mode to a residue-label list."""
+    if label_mode == "strict":
+        return labels
+    return [collapsed_map.get(x, x) for x in labels]
+
+
 def predict_sequence(model, sequence, meta, device):
     """Run model prediction on a single sequence."""
     # Encode
@@ -307,6 +384,25 @@ def main():
     parser.add_argument("--col_domain", default="domain")
     parser.add_argument("--col_start", default="start")
     parser.add_argument("--col_end", default="end")
+    parser.add_argument(
+        "--label_mode",
+        choices=["strict", "shared"],
+        default="strict",
+        help=(
+            "strict: native model labels only; "
+            "shared: collapse labels into shared ontology to avoid train/eval label mismatch"
+        ),
+    )
+    parser.add_argument(
+        "--label_map_json",
+        default="",
+        help="Optional JSON map for shared label mode, e.g. {\"RVT_thumb\":\"RT_accessory\"}",
+    )
+    parser.add_argument(
+        "--fail_on_label_mismatch",
+        action="store_true",
+        help="Fail fast if annotation labels include classes that are not in model label space.",
+    )
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -335,6 +431,44 @@ def main():
         col_id=args.col_id, col_domain=args.col_domain,
         col_start=args.col_start, col_end=args.col_end,
     )
+
+    annotation_labels = set()
+    for entries in annotations.values():
+        for domain, _start, _end in entries:
+            annotation_labels.add(domain)
+
+    label_map = load_label_map(args.label_map_json)
+    label_config = resolve_label_config(
+        model_labels=set(idx_to_label),
+        annotation_labels=annotation_labels | {"none"},
+        label_mode=args.label_mode,
+        label_map=label_map,
+    )
+
+    if args.label_mode == "strict" and label_config.annotation_only:
+        logger.warning(
+            "Label mismatch detected: annotation has labels unseen during training: %s",
+            sorted(label_config.annotation_only),
+        )
+        logger.warning(
+            "These labels will have near-zero recall by construction. "
+            "Use --label_mode shared or retrain with expanded labels."
+        )
+        if args.fail_on_label_mismatch:
+            logger.error("Exiting because --fail_on_label_mismatch was set.")
+            sys.exit(2)
+    elif args.label_mode == "shared":
+        logger.info("Shared-label evaluation enabled.")
+        if label_config.training_only:
+            logger.info(
+                "  Collapsed labels present only in training set: %s",
+                sorted(label_config.training_only),
+            )
+        if label_config.annotation_only:
+            logger.info(
+                "  Collapsed labels present only in annotation set: %s",
+                sorted(label_config.annotation_only),
+            )
 
     # Find proteins with both sequence and annotation
     common_ids = set()
@@ -376,6 +510,9 @@ def main():
         # True labels from structural annotation
         true_labels = annotations_to_residue_labels(annots, len(seq), label_to_idx)
 
+        pred_labels = apply_label_mode(pred_labels, args.label_mode, label_config.collapsed_map)
+        true_labels = apply_label_mode(true_labels, args.label_mode, label_config.collapsed_map)
+
         # Per-residue comparison
         for pred, true in zip(pred_labels, true_labels):
             if true != "none":
@@ -383,7 +520,8 @@ def main():
                     per_domain_tp[true] += 1
                 else:
                     per_domain_fn[true] += 1
-                    per_domain_fp[pred] += 1
+                    if pred != "none":
+                        per_domain_fp[pred] += 1
 
         # Boundary comparison
         boundary_result = compute_boundary_comparison(
@@ -422,7 +560,8 @@ def main():
     logger.info(f"  {'-'*60}")
 
     all_f1s = []
-    for domain in idx_to_label:
+    metric_domains = sorted(label_config.eval_labels)
+    for domain in metric_domains:
         if domain == "none":
             continue
         tp = per_domain_tp.get(domain, 0)

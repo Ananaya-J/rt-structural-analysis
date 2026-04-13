@@ -151,3 +151,92 @@ informative. Splitting fingers/palm is the Phase 2 hard problem.
 2. **Finger/Palm split:** Build custom HMMs or use structural alignment to split RVT_1
 3. **Family-specific models:** Train separate models per RT family
 4. **Ensemble with structural:** Use predicted boundaries as priors for domain_annotator_v5
+
+---
+
+## How to increase the training dataset (practical plan)
+
+If per-domain recall is low because the model predicts mostly `none`, increase dataset size **and** coverage in a controlled order:
+
+### 1) Pull more proteins with full target label space (not just GIIM-heavy sets)
+
+Use the bulk fetchers (they already support all target labels):
+
+```bash
+# UniProt bulk pull (fast, large)
+python 01b_fetch_bulk_training_data.py \
+    --output_dir ./training_data_bulk_uniprot \
+    --max_proteins 12000
+
+# InterPro bulk pull (complementary source)
+python 01c_fetch_interpro_bulk.py \
+    --output_dir ./training_data_bulk_interpro \
+    --max_proteins 12000
+```
+
+Why both? The APIs have different coverage quirks; unioning both typically gives better architecture diversity.
+
+### 2) Check whether new data actually improves domain coverage
+
+Before training, inspect class distribution after `02_prepare_dataset.py`:
+
+```bash
+python 02_prepare_dataset.py \
+    --input ./training_data_bulk_uniprot/dataset.json \
+    --output ./training_data_bulk_uniprot/processed \
+    --val_fraction 0.15
+```
+
+In the printed label distribution, verify `RVT_thumb`, `RVT_connect`, and `RNase_H` are no longer near-zero support.
+
+### 3) Merge curated retroviral/retron annotations into `dataset.json`
+
+Your manually curated set (e.g., the 18 retroviral entries from xlsx) is valuable, but only if:
+
+- labels are in the same ontology (`RVT_1`, `RVT_thumb`, `RVT_connect`, `RNase_H`, `GIIM`, `none`)
+- coordinates are mapped to the exact sequence used for training (full-length UniProt indexing)
+
+Recommended merge policy:
+- de-duplicate by accession
+- prefer manual coordinates over auto-fetched coordinates for conflicting proteins
+- keep provenance metadata (source=`manual_xlsx` vs `interpro`/`uniprot`)
+
+You can now convert/merge manual annotations directly:
+
+```bash
+python 01d_import_manual_annotations.py \
+    --input ./retroviral_annotations.xlsx \
+    --sheet Sheet1 \
+    --base_dataset ./training_data_bulk_uniprot/dataset.json \
+    --output ./training_data_augmented/dataset.json \
+    --prefer manual
+```
+
+Expected columns (one row per domain span):  
+`accession, sequence, domain, start, end[, pfam_id]`
+
+If `--base_dataset` is provided, `sequence` may be blank for rows whose accession
+already exists in the base dataset (the importer will infer the sequence).
+
+### 4) Retrain with imbalance handling enabled (already in pipeline)
+
+`02_prepare_dataset.py` computes inverse-frequency class weights; keep using those when training, and monitor:
+- Macro F1 (not just accuracy)
+- per-domain recall
+- domain-only accuracy (`DomAcc`)
+
+If background collapse persists after data expansion, consider adding focal loss or domain-residue oversampling in training.
+
+### 5) Re-evaluate with label-consistent settings
+
+Use `04_evaluate.py` in either:
+- `--label_mode strict` (same label space as training), or
+- `--label_mode shared` with a mapping JSON when comparing across annotation systems.
+
+This avoids penalizing the model for labels it never had during training.
+
+### Suggested scale targets
+
+- **Minimum useful bump:** +200 to +500 proteins with `RVT_thumb`/`RVT_connect`/`RNase_H`
+- **Better:** 1K+ proteins spanning multiple clades (retroviral RTs, retrons, bacterial RTs)
+- Keep GIIM proteins, but avoid letting them dominate the training distribution.
