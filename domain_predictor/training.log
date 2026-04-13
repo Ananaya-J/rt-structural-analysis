@@ -1,0 +1,79 @@
+nohup: ignoring input
+2026-04-10 18:55:13,155 [INFO] Device: cpu
+2026-04-10 18:55:13,413 [INFO] Labels: ['none', 'RVT_1', 'RVT_thumb', 'RVT_connect', 'RNase_H', 'GIIM']
+2026-04-10 18:55:13,414 [INFO] Train: 351, Val: 60
+2026-04-10 18:55:13,856 [INFO] Model parameters: 51,654
+2026-04-10 18:55:13,856 [INFO] CRF: disabled
+2026-04-10 18:56:09,034 [INFO] Epoch   1/30 | Loss 1.6464 | Acc 0.553 | DomAcc 0.033 | MacroF1 0.017 | BndF1 0.081 | 49.3s
+2026-04-10 18:56:09,034 [INFO]     none                : P=0.551 R=0.985 F1=0.707 (n=17484)
+2026-04-10 18:56:09,035 [INFO]     RVT_1               : P=0.614 R=0.044 F1=0.083 (n=10657)
+2026-04-10 18:56:09,035 [INFO]     RVT_thumb           : P=0.000 R=0.000 F1=0.000 (n=2582)
+2026-04-10 18:56:09,035 [INFO]     RVT_connect         : P=0.000 R=0.000 F1=0.000 (n=417)
+2026-04-10 18:56:09,035 [INFO]     RNase_H             : P=0.000 R=0.000 F1=0.000 (n=653)
+2026-04-10 18:56:09,035 [INFO]     GIIM                : P=0.000 R=0.000 F1=0.000 (n=229)
+2026-04-10 18:56:09,042 [INFO]     ★ New best model saved (F1=0.0166)
+2026-04-10 18:56:54,199 [INFO] Epoch   2/30 | Loss 1.3210 | Acc 0.545 | DomAcc 0.000 | MacroF1 0.000 | BndF1 0.000 | 44.6s
+2026-04-10 18:57:42,846 [INFO] Epoch   3/30 | Loss 1.1268 | Acc 0.544 | DomAcc 0.001 | MacroF1 0.000 | BndF1 0.000 | 48.1s
+2026-04-10 18:58:28,893 [INFO] Epoch   4/30 | Loss 1.0779 | Acc 0.571 | DomAcc 0.101 | MacroF1 0.045 | BndF1 0.096 | 45.4s
+2026-04-10 18:58:28,896 [INFO]     ★ New best model saved (F1=0.0454)
+2026-04-10 18:59:17,996 [INFO] Epoch   5/30 | Loss 1.0460 | Acc 0.601 | DomAcc 0.215 | MacroF1 0.081 | BndF1 0.071 | 48.6s
+2026-04-10 18:59:18,000 [INFO]     ★ New best model saved (F1=0.0811)
+2026-04-10 19:00:05,783 [INFO] Epoch   6/30 | Loss 0.9487 | Acc 0.738 | DomAcc 0.701 | MacroF1 0.161 | BndF1 0.214 | 47.2s
+2026-04-10 19:00:05,787 [INFO]     ★ New best model saved (F1=0.1605)
+2026-04-10 19:00:56,380 [INFO] Epoch   7/30 | Loss 0.7710 | Acc 0.790 | DomAcc 0.565 | MacroF1 0.209 | BndF1 0.222 | 50.0s
+2026-04-10 19:00:56,384 [INFO]     ★ New best model saved (F1=0.2086)
+2026-04-10 19:01:48,714 [INFO] Epoch   8/30 | Loss 0.6903 | Acc 0.811 | DomAcc 0.759 | MacroF1 0.315 | BndF1 0.285 | 51.7s
+2026-04-10 19:01:48,718 [INFO]     ★ New best model saved (F1=0.3148)
+2026-04-10 19:02:36,000 [INFO] Epoch   9/30 | Loss 0.6660 | Acc 0.873 | DomAcc 0.835 | MacroF1 0.348 | BndF1 0.320 | 46.7s
+2026-04-10 19:02:36,004 [INFO]     ★ New best model saved (F1=0.3482)
+2026-04-10 19:03:27,208 [INFO] Epoch  10/30 | Loss 0.5883 | Acc 0.847 | DomAcc 0.861 | MacroF1 0.349 | BndF1 0.341 | 50.7s
+2026-04-10 19:03:27,208 [INFO]     none                : P=0.925 R=0.835 F1=0.878 (n=17484)
+2026-04-10 19:03:27,208 [INFO]     RVT_1               : P=0.743 R=0.960 F1=0.838 (n=10657)
+2026-04-10 19:03:27,208 [INFO]     RVT_thumb           : P=0.926 R=0.887 F1=0.906 (n=2582)
+2026-04-10 19:03:27,208 [INFO]     RVT_connect         : P=0.000 R=0.000 F1=0.000 (n=417)
+2026-04-10 19:03:27,208 [INFO]     RNase_H             : P=0.000 R=0.000 F1=0.000 (n=653)
+2026-04-10 19:03:27,208 [INFO]     GIIM                : P=0.000 R=0.000 F1=0.000 (n=229)
+2026-04-10 19:03:27,212 [INFO]     ★ New best model saved (F1=0.3488)
+2026-04-10 19:04:18,748 [INFO] Epoch  11/30 | Loss 0.5480 | Acc 0.846 | DomAcc 0.845 | MacroF1 0.346 | BndF1 0.291 | 50.9s
+2026-04-10 19:05:06,661 [INFO] Epoch  12/30 | Loss 0.4824 | Acc 0.879 | DomAcc 0.828 | MacroF1 0.360 | BndF1 0.316 | 47.3s
+2026-04-10 19:05:06,665 [INFO]     ★ New best model saved (F1=0.3604)
+2026-04-10 19:05:54,972 [INFO] Epoch  13/30 | Loss 0.4447 | Acc 0.873 | DomAcc 0.831 | MacroF1 0.359 | BndF1 0.339 | 47.8s
+2026-04-10 19:06:41,381 [INFO] Epoch  14/30 | Loss 0.4140 | Acc 0.877 | DomAcc 0.790 | MacroF1 0.359 | BndF1 0.343 | 45.9s
+2026-04-10 19:07:28,940 [INFO] Epoch  15/30 | Loss 0.4092 | Acc 0.884 | DomAcc 0.828 | MacroF1 0.359 | BndF1 0.320 | 47.0s
+2026-04-10 19:08:11,722 [INFO] Epoch  16/30 | Loss 0.4038 | Acc 0.874 | DomAcc 0.831 | MacroF1 0.359 | BndF1 0.225 | 42.2s
+2026-04-10 19:08:58,718 [INFO] Epoch  17/30 | Loss 0.3825 | Acc 0.891 | DomAcc 0.822 | MacroF1 0.368 | BndF1 0.321 | 46.5s
+2026-04-10 19:08:58,722 [INFO]     ★ New best model saved (F1=0.3678)
+2026-04-10 19:09:45,641 [INFO] Epoch  18/30 | Loss 0.3798 | Acc 0.883 | DomAcc 0.827 | MacroF1 0.366 | BndF1 0.288 | 46.3s
+2026-04-10 19:10:32,986 [INFO] Epoch  19/30 | Loss 0.3752 | Acc 0.895 | DomAcc 0.818 | MacroF1 0.368 | BndF1 0.405 | 46.7s
+2026-04-10 19:11:23,146 [INFO] Epoch  20/30 | Loss 0.3552 | Acc 0.891 | DomAcc 0.829 | MacroF1 0.370 | BndF1 0.299 | 49.6s
+2026-04-10 19:11:23,146 [INFO]     none                : P=0.887 R=0.942 F1=0.914 (n=17484)
+2026-04-10 19:11:23,146 [INFO]     RVT_1               : P=0.886 R=0.890 F1=0.888 (n=10657)
+2026-04-10 19:11:23,146 [INFO]     RVT_thumb           : P=0.932 R=0.997 F1=0.964 (n=2582)
+2026-04-10 19:11:23,146 [INFO]     RVT_connect         : P=0.000 R=0.000 F1=0.000 (n=417)
+2026-04-10 19:11:23,146 [INFO]     RNase_H             : P=0.000 R=0.000 F1=0.000 (n=653)
+2026-04-10 19:11:23,146 [INFO]     GIIM                : P=0.000 R=0.000 F1=0.000 (n=229)
+2026-04-10 19:11:23,150 [INFO]     ★ New best model saved (F1=0.3704)
+2026-04-10 19:12:10,822 [INFO] Epoch  21/30 | Loss 0.3433 | Acc 0.897 | DomAcc 0.820 | MacroF1 0.372 | BndF1 0.386 | 47.1s
+2026-04-10 19:12:10,826 [INFO]     ★ New best model saved (F1=0.3724)
+2026-04-10 19:13:00,467 [INFO] Epoch  22/30 | Loss 0.3457 | Acc 0.898 | DomAcc 0.820 | MacroF1 0.371 | BndF1 0.432 | 49.1s
+2026-04-10 19:13:47,305 [INFO] Epoch  23/30 | Loss 0.3324 | Acc 0.900 | DomAcc 0.816 | MacroF1 0.372 | BndF1 0.537 | 46.3s
+2026-04-10 19:14:34,587 [INFO] Epoch  24/30 | Loss 0.3349 | Acc 0.902 | DomAcc 0.827 | MacroF1 0.374 | BndF1 0.396 | 46.7s
+2026-04-10 19:14:34,591 [INFO]     ★ New best model saved (F1=0.3743)
+2026-04-10 19:15:22,731 [INFO] Epoch  25/30 | Loss 0.3436 | Acc 0.883 | DomAcc 0.831 | MacroF1 0.364 | BndF1 0.261 | 47.6s
+2026-04-10 19:16:10,980 [INFO] Epoch  26/30 | Loss 0.3415 | Acc 0.899 | DomAcc 0.814 | MacroF1 0.368 | BndF1 0.569 | 47.7s
+2026-04-10 19:16:59,663 [INFO] Epoch  27/30 | Loss 0.3308 | Acc 0.903 | DomAcc 0.814 | MacroF1 0.376 | BndF1 0.504 | 48.1s
+2026-04-10 19:16:59,667 [INFO]     ★ New best model saved (F1=0.3757)
+2026-04-10 19:17:48,691 [INFO] Epoch  28/30 | Loss 0.3283 | Acc 0.896 | DomAcc 0.845 | MacroF1 0.366 | BndF1 0.337 | 48.5s
+2026-04-10 19:18:36,227 [INFO] Epoch  29/30 | Loss 0.3226 | Acc 0.900 | DomAcc 0.834 | MacroF1 0.377 | BndF1 0.327 | 46.8s
+2026-04-10 19:18:36,230 [INFO]     ★ New best model saved (F1=0.3771)
+2026-04-10 19:19:25,506 [INFO] Epoch  30/30 | Loss 0.3105 | Acc 0.891 | DomAcc 0.863 | MacroF1 0.380 | BndF1 0.283 | 48.7s
+2026-04-10 19:19:25,506 [INFO]     none                : P=0.917 R=0.915 F1=0.916 (n=17484)
+2026-04-10 19:19:25,506 [INFO]     RVT_1               : P=0.846 R=0.934 F1=0.888 (n=10657)
+2026-04-10 19:19:25,506 [INFO]     RVT_thumb           : P=0.923 R=1.000 F1=0.960 (n=2582)
+2026-04-10 19:19:25,506 [INFO]     RVT_connect         : P=1.000 R=0.026 F1=0.051 (n=417)
+2026-04-10 19:19:25,506 [INFO]     RNase_H             : P=0.000 R=0.000 F1=0.000 (n=653)
+2026-04-10 19:19:25,506 [INFO]     GIIM                : P=0.000 R=0.000 F1=0.000 (n=229)
+2026-04-10 19:19:25,510 [INFO]     ★ New best model saved (F1=0.3799)
+2026-04-10 19:19:25,513 [INFO] 
+Best model: epoch 30, macro F1 = 0.3799
+2026-04-10 19:19:25,513 [INFO] Saved to ../models/best_model.pt

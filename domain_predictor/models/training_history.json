@@ -1,0 +1,1382 @@
+[
+  {
+    "epoch": 1,
+    "loss": 1.6463915326378562,
+    "accuracy": 0.5528386734120292,
+    "domain_accuracy": 0.032604209657449444,
+    "macro_f1": 0.016589377898328813,
+    "boundary_f1": 0.08093278463648834,
+    "per_domain": {
+      "none": {
+        "precision": 0.551328,
+        "recall": 0.9854152367879204,
+        "f1": 0.7070628308778267,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.6139896373056994,
+        "recall": 0.04447780801351225,
+        "f1": 0.08294688949164407,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 2,
+    "loss": 1.3210085413672707,
+    "accuracy": 0.5450627693460746,
+    "domain_accuracy": 0.0,
+    "macro_f1": 0.0,
+    "boundary_f1": 0,
+    "per_domain": {
+      "none": {
+        "precision": 0.5455738934733684,
+        "recall": 0.9982841455044612,
+        "f1": 0.7055542081008974,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 3,
+    "loss": 1.1268172589215366,
+    "accuracy": 0.5440322278433577,
+    "domain_accuracy": 0.000756637776860641,
+    "macro_f1": 0.0004095690216885414,
+    "boundary_f1": 0,
+    "per_domain": {
+      "none": {
+        "precision": 0.5451528056112225,
+        "recall": 0.9957675589110043,
+        "f1": 0.7045730473492513,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.12790697674418605,
+        "recall": 0.0010321854180350943,
+        "f1": 0.002047845108442707,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 4,
+    "loss": 1.077909762209112,
+    "accuracy": 0.5711698207482356,
+    "domain_accuracy": 0.10097675058467465,
+    "macro_f1": 0.045357639425305116,
+    "boundary_f1": 0.09562943593574898,
+    "per_domain": {
+      "none": {
+        "precision": 0.5657686745367101,
+        "recall": 0.9621368107984443,
+        "f1": 0.712539975009001,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.6413280908693753,
+        "recall": 0.1377498357886835,
+        "f1": 0.22678819712652556,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 5,
+    "loss": 1.0459751974452625,
+    "accuracy": 0.6010555243270251,
+    "domain_accuracy": 0.21543541064795707,
+    "macro_f1": 0.08110312682074189,
+    "boundary_f1": 0.07083647324792766,
+    "per_domain": {
+      "none": {
+        "precision": 0.5917670387779084,
+        "recall": 0.9216998398535804,
+        "f1": 0.7207710886483586,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.6538622129436326,
+        "recall": 0.2938913390259923,
+        "f1": 0.40551563410370944,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 6,
+    "loss": 0.948654212734916,
+    "accuracy": 0.7379301730060583,
+    "domain_accuracy": 0.700990507635163,
+    "macro_f1": 0.16053875236294896,
+    "boundary_f1": 0.2138953942232631,
+    "per_domain": {
+      "none": {
+        "precision": 0.7774049864059698,
+        "recall": 0.7686456188515214,
+        "f1": 0.7730004889131747,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.6916185951815406,
+        "recall": 0.9562728722905133,
+        "f1": 0.8026937618147447,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 7,
+    "loss": 0.7710358012806285,
+    "accuracy": 0.7898632190369121,
+    "domain_accuracy": 0.564589352042922,
+    "macro_f1": 0.20863586082004798,
+    "boundary_f1": 0.2222222222222222,
+    "per_domain": {
+      "none": {
+        "precision": 0.732947232947233,
+        "recall": 0.9771791352093342,
+        "f1": 0.8376231798793939,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9400142823137349,
+        "recall": 0.7411091301491977,
+        "f1": 0.8287947951099217,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 1.0,
+        "recall": 0.12006196746707978,
+        "f1": 0.21438450899031813,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 8,
+    "loss": 0.6902772025628523,
+    "accuracy": 0.8107238773343326,
+    "domain_accuracy": 0.7594579722107581,
+    "macro_f1": 0.3148296067945752,
+    "boundary_f1": 0.2847457627118644,
+    "per_domain": {
+      "none": {
+        "precision": 0.8200505661206992,
+        "recall": 0.8533516357812857,
+        "f1": 0.8363697516676944,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.7779972023368715,
+        "recall": 0.8872102843201651,
+        "f1": 0.8290223586146427,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.946865671641791,
+        "recall": 0.6142525174283501,
+        "f1": 0.7451256753582335,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 9,
+    "loss": 0.666007703000849,
+    "accuracy": 0.8731809381050528,
+    "domain_accuracy": 0.8345714678772871,
+    "macro_f1": 0.3481968667736913,
+    "boundary_f1": 0.31985940246045697,
+    "per_domain": {
+      "none": {
+        "precision": 0.9043537881384984,
+        "recall": 0.9052848318462594,
+        "f1": 0.9048190704853369,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8447750804837727,
+        "recall": 0.9110443839729755,
+        "f1": 0.8766591422121897,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.800792864222002,
+        "recall": 0.9388071262587142,
+        "f1": 0.8643251916562668,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 10,
+    "loss": 0.588346234776757,
+    "accuracy": 0.8470114296421211,
+    "domain_accuracy": 0.8611913605722933,
+    "macro_f1": 0.34883018219267836,
+    "boundary_f1": 0.3409337676438654,
+    "per_domain": {
+      "none": {
+        "precision": 0.925118783655369,
+        "recall": 0.835220773278426,
+        "f1": 0.8778742973939704,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.7431705899447835,
+        "recall": 0.9598386037346345,
+        "f1": 0.8377216330207607,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9264051758997169,
+        "recall": 0.8872966692486445,
+        "f1": 0.906429277942631,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 11,
+    "loss": 0.5480261959812858,
+    "accuracy": 0.8455749172443945,
+    "domain_accuracy": 0.8450268262484524,
+    "macro_f1": 0.34626757359112925,
+    "boundary_f1": 0.2912785774767147,
+    "per_domain": {
+      "none": {
+        "precision": 0.909605214610749,
+        "recall": 0.8460306566003203,
+        "f1": 0.8766668642209446,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.7590527119938885,
+        "recall": 0.9323449375996997,
+        "f1": 0.8368214932412517,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8797752808988764,
+        "recall": 0.9097598760650658,
+        "f1": 0.8945163747143945,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 12,
+    "loss": 0.4824020401998,
+    "accuracy": 0.8794891012428955,
+    "domain_accuracy": 0.8281744394001926,
+    "macro_f1": 0.36041833781261035,
+    "boundary_f1": 0.31578947368421056,
+    "per_domain": {
+      "none": {
+        "precision": 0.8870000550145789,
+        "recall": 0.9221574010523907,
+        "f1": 0.9042371217857043,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8703177946698416,
+        "recall": 0.8917143661443183,
+        "f1": 0.8808861698183167,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.867053998632946,
+        "recall": 0.982571649883811,
+        "f1": 0.9212055192447349,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 13,
+    "loss": 0.4446866105903279,
+    "accuracy": 0.8731809381050528,
+    "domain_accuracy": 0.8305819232356583,
+    "macro_f1": 0.35885854734978173,
+    "boundary_f1": 0.33878504672897203,
+    "per_domain": {
+      "none": {
+        "precision": 0.8836847082383045,
+        "recall": 0.9086021505376344,
+        "f1": 0.8959702208059559,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8595242386015498,
+        "recall": 0.8950924275124331,
+        "f1": 0.8769478280854975,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8605361384458772,
+        "recall": 0.9821843532145623,
+        "f1": 0.9173449086634111,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 14,
+    "loss": 0.4139673980799588,
+    "accuracy": 0.8766160764474424,
+    "domain_accuracy": 0.7897922685376255,
+    "macro_f1": 0.3590244701343285,
+    "boundary_f1": 0.3425925925925926,
+    "per_domain": {
+      "none": {
+        "precision": 0.8574899203969812,
+        "recall": 0.9488103408830931,
+        "f1": 0.9008417051316862,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9113668483747224,
+        "recall": 0.8471427230928028,
+        "f1": 0.878081991927248,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8859205776173286,
+        "recall": 0.9504260263361735,
+        "f1": 0.9170403587443946,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 15,
+    "loss": 0.40915448286316614,
+    "accuracy": 0.8835800387233776,
+    "domain_accuracy": 0.8281056541477507,
+    "macro_f1": 0.3593893605099029,
+    "boundary_f1": 0.31958762886597936,
+    "per_domain": {
+      "none": {
+        "precision": 0.8937211348141632,
+        "recall": 0.9297071608327614,
+        "f1": 0.9113590491141511,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.878191439977718,
+        "recall": 0.8875856244721779,
+        "f1": 0.882863543027814,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8423114593535749,
+        "recall": 0.9992254066615027,
+        "f1": 0.9140832595217007,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 16,
+    "loss": 0.40377066081220453,
+    "accuracy": 0.8737742801823746,
+    "domain_accuracy": 0.8305819232356583,
+    "macro_f1": 0.35883834674186477,
+    "boundary_f1": 0.22486969471332838,
+    "per_domain": {
+      "none": {
+        "precision": 0.8869123961411922,
+        "recall": 0.909688858384809,
+        "f1": 0.8981562526470339,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8526006412540078,
+        "recall": 0.8982828188045416,
+        "f1": 0.8748457847840988,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8745193988116043,
+        "recall": 0.9690162664601084,
+        "f1": 0.919345948925225,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 17,
+    "loss": 0.38254632597619836,
+    "accuracy": 0.8908875148335519,
+    "domain_accuracy": 0.8224652634475168,
+    "macro_f1": 0.36775309719110155,
+    "boundary_f1": 0.3208121827411168,
+    "per_domain": {
+      "none": {
+        "precision": 0.8839752480529179,
+        "recall": 0.9477808281857698,
+        "f1": 0.9147667678719293,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8969789383398457,
+        "recall": 0.8831753776860279,
+        "f1": 0.8900236406619385,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9144807761408552,
+        "recall": 0.9856700232378002,
+        "f1": 0.9487418452935694,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 18,
+    "loss": 0.37982298027385364,
+    "accuracy": 0.8830491537068266,
+    "domain_accuracy": 0.8270050901086807,
+    "macro_f1": 0.36579962841043256,
+    "boundary_f1": 0.28824049513704686,
+    "per_domain": {
+      "none": {
+        "precision": 0.8876146788990825,
+        "recall": 0.9296499656829101,
+        "f1": 0.9081461615822997,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8644592013099245,
+        "recall": 0.8917143661443183,
+        "f1": 0.8778752886836029,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9274935590725064,
+        "recall": 0.975987606506584,
+        "f1": 0.9511228533685601,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 19,
+    "loss": 0.37517772344025696,
+    "accuracy": 0.8946037099494097,
+    "domain_accuracy": 0.8181317925436786,
+    "macro_f1": 0.3677460401910906,
+    "boundary_f1": 0.40458015267175573,
+    "per_domain": {
+      "none": {
+        "precision": 0.8787306582743247,
+        "recall": 0.9581903454587051,
+        "f1": 0.9167419081233413,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9271569310379142,
+        "recall": 0.8742610490757249,
+        "f1": 0.8999323867478026,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8861760660247593,
+        "recall": 0.9980635166537568,
+        "f1": 0.9387978142076503,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 20,
+    "loss": 0.3551626218990846,
+    "accuracy": 0.8907001436512397,
+    "domain_accuracy": 0.8292750034392626,
+    "macro_f1": 0.370352859287046,
+    "boundary_f1": 0.2993451824134706,
+    "per_domain": {
+      "none": {
+        "precision": 0.8869377861567466,
+        "recall": 0.9417753374513841,
+        "f1": 0.9135343560154234,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8864890135577372,
+        "recall": 0.8896499953082481,
+        "f1": 0.8880666916448107,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9322954380883418,
+        "recall": 0.9972889233152595,
+        "f1": 0.9636976047904191,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 21,
+    "loss": 0.3432979380542582,
+    "accuracy": 0.8967584785459997,
+    "domain_accuracy": 0.8202641353693768,
+    "macro_f1": 0.37238070385505784,
+    "boundary_f1": 0.3856812933025405,
+    "per_domain": {
+      "none": {
+        "precision": 0.8779148802676984,
+        "recall": 0.9603637611530542,
+        "f1": 0.9172903578257307,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.923624147811481,
+        "recall": 0.8771699352538238,
+        "f1": 0.8997978631244585,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9286486486486486,
+        "recall": 0.9980635166537568,
+        "f1": 0.9621056561508308,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 22,
+    "loss": 0.3457413762807846,
+    "accuracy": 0.8975391918056336,
+    "domain_accuracy": 0.8200577796120512,
+    "macro_f1": 0.37100770049222104,
+    "boundary_f1": 0.4319148936170213,
+    "per_domain": {
+      "none": {
+        "precision": 0.8799309406717589,
+        "recall": 0.9619652253488904,
+        "f1": 0.9191212634570194,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.926432678960936,
+        "recall": 0.876794595101811,
+        "f1": 0.9009304343633997,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9135364989369241,
+        "recall": 0.9984508133230054,
+        "f1": 0.9541080680977054,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 23,
+    "loss": 0.3323560099710118,
+    "accuracy": 0.9004746736618575,
+    "domain_accuracy": 0.8162058054753061,
+    "macro_f1": 0.371752565071254,
+    "boundary_f1": 0.5368421052631579,
+    "per_domain": {
+      "none": {
+        "precision": 0.875232102331339,
+        "recall": 0.9705444978265843,
+        "f1": 0.9204274246040355,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9489983646770237,
+        "recall": 0.8712583278596228,
+        "f1": 0.9084682745462551,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9056140350877193,
+        "recall": 0.9996127033307514,
+        "f1": 0.9502945508100148,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 24,
+    "loss": 0.33493503521789203,
+    "accuracy": 0.9015676722253451,
+    "domain_accuracy": 0.8267299490989132,
+    "macro_f1": 0.37426840971815845,
+    "boundary_f1": 0.39581351094196005,
+    "per_domain": {
+      "none": {
+        "precision": 0.8858689937966565,
+        "recall": 0.9637954701441318,
+        "f1": 0.9231907083767052,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9190397511905919,
+        "recall": 0.8873041193581683,
+        "f1": 0.9028931538241192,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9454075986720767,
+        "recall": 0.9926413632842758,
+        "f1": 0.968448894766673,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 25,
+    "loss": 0.34363724291324615,
+    "accuracy": 0.8828930110548997,
+    "domain_accuracy": 0.831269775760077,
+    "macro_f1": 0.36368893114163026,
+    "boundary_f1": 0.26072329688814133,
+    "per_domain": {
+      "none": {
+        "precision": 0.895992472046939,
+        "recall": 0.9258178906428735,
+        "f1": 0.910661040787623,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8554540569586244,
+        "recall": 0.8963122830064746,
+        "f1": 0.875406681024607,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9078853046594982,
+        "recall": 0.9810224632068164,
+        "f1": 0.9430379746835443,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 26,
+    "loss": 0.3414534560658715,
+    "accuracy": 0.8989757042033601,
+    "domain_accuracy": 0.8137983216398404,
+    "macro_f1": 0.36818083008602376,
+    "boundary_f1": 0.5690140845070423,
+    "per_domain": {
+      "none": {
+        "precision": 0.8732553947571715,
+        "recall": 0.9698009608785175,
+        "f1": 0.9189994851088046,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9601535747639307,
+        "recall": 0.8682556066435206,
+        "f1": 0.9118951414211096,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8685983827493261,
+        "recall": 0.9984508133230054,
+        "f1": 0.9290090090090091,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 27,
+    "loss": 0.3308420330286026,
+    "accuracy": 0.9030978702142277,
+    "domain_accuracy": 0.8140734626496079,
+    "macro_f1": 0.37572725108185256,
+    "boundary_f1": 0.5037037037037037,
+    "per_domain": {
+      "none": {
+        "precision": 0.8712770297837618,
+        "recall": 0.9771219400594829,
+        "f1": 0.9211689852259246,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9569693226271361,
+        "recall": 0.8722905132776578,
+        "f1": 0.9126699720190466,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9403482771396814,
+        "recall": 0.9829589465530596,
+        "f1": 0.961181594395001,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 1.0,
+        "recall": 0.002398081534772182,
+        "f1": 0.004784688995215311,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 28,
+    "loss": 0.3282967819408937,
+    "accuracy": 0.8956342514521267,
+    "domain_accuracy": 0.8450956115008942,
+    "macro_f1": 0.36597393593158384,
+    "boundary_f1": 0.3368251410153102,
+    "per_domain": {
+      "none": {
+        "precision": 0.9095145631067961,
+        "recall": 0.937657286662091,
+        "f1": 0.9233715396096764,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8930116932142528,
+        "recall": 0.9101060335929436,
+        "f1": 0.9014778325123152,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.8259756877799105,
+        "recall": 1.0,
+        "f1": 0.9046951646811493,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 1.0,
+        "recall": 0.011990407673860911,
+        "f1": 0.023696682464454978,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 29,
+    "loss": 0.32260003415021027,
+    "accuracy": 0.9001623883580039,
+    "domain_accuracy": 0.8342275416150777,
+    "macro_f1": 0.3770870114055322,
+    "boundary_f1": 0.32672482157018246,
+    "per_domain": {
+      "none": {
+        "precision": 0.8905541628886874,
+        "recall": 0.9549874170670327,
+        "f1": 0.9216460133027903,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.9043641482871891,
+        "recall": 0.9041944261987426,
+        "f1": 0.9042792792792792,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9517795637198623,
+        "recall": 0.9632068164213787,
+        "f1": 0.9574590952839269,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 1.0,
+        "recall": 0.011990407673860911,
+        "f1": 0.023696682464454978,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  },
+  {
+    "epoch": 30,
+    "loss": 0.31052846258336847,
+    "accuracy": 0.8914496283804885,
+    "domain_accuracy": 0.8632549181455496,
+    "macro_f1": 0.3798509909801292,
+    "boundary_f1": 0.28285523682454966,
+    "per_domain": {
+      "none": {
+        "precision": 0.9168863922962284,
+        "recall": 0.9148936170212766,
+        "f1": 0.9158889206985399,
+        "support": 17484
+      },
+      "RVT_1": {
+        "precision": 0.8463369029406765,
+        "recall": 0.93440930843577,
+        "f1": 0.8881951567586853,
+        "support": 10657
+      },
+      "RVT_thumb": {
+        "precision": 0.9227744011440829,
+        "recall": 0.9996127033307514,
+        "f1": 0.9596579289830824,
+        "support": 2582
+      },
+      "RVT_connect": {
+        "precision": 1.0,
+        "recall": 0.026378896882494004,
+        "f1": 0.051401869158878497,
+        "support": 417
+      },
+      "RNase_H": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 653
+      },
+      "GIIM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 229
+      }
+    }
+  }
+]

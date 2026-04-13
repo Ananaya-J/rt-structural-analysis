@@ -1,1 +1,0 @@
-# rt-structural-analysis
