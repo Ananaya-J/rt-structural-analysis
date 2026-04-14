@@ -1,0 +1,4 @@
+# Large binary files — store separately, not in git
+*.h5
+*.pt
+*.hdf5
